@@ -1,0 +1,138 @@
+/* Global styles */
+body,
+html {
+  font-family: "Arial", sans-serif; /* You can replace this with any font you prefer */
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4; /* Light grey background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: linear-gradient(
+    135deg,
+    #6e8efb,
+    #a777e3
+  ); /* Gradient background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow around the container */
+  width: 90%; /* Adjust based on your preference */
+  max-width: 600px; /* Maximum width of the container */
+  text-align: center;
+  color: #fff; /* White text color */
+}
+
+h1 {
+  margin-bottom: 20px; /* Space below the header */
+}
+
+input[type="text"],
+button {
+  padding: 10px;
+  margin-top: 10px; /* Margin on top of inputs and buttons for spacing */
+  width: calc(
+    100% - 22px
+  ); /* Full width taking padding and border into account */
+  border: none;
+  border-radius: 5px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #6e8efb, #a777e3); /* Color gradient */
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  border-radius: 8px; /* Rounded corners for the modal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.close {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #ccc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signature-pad {
+  border: 2px solid #ccc; /* Solid border for signature pad */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  background-color: #fafafa;
+  width: 100%; /* Full width of the container */
+  height: 150px; /* Fixed height for consistent appearance */
+}
+
+.button {
+  background-color: #4caf50; /* Green background for buttons */
+  color: white;
+  font-size: 16px; /* Larger font size for better readability */
+  cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+  border: none;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* General table styling */
+.styled-table,
+.checked-in-table {
+  width: 80%; /* Adjust according to layout */
+  border-collapse: collapse; /* Ensures gridlines appear neatly */
+  margin: 2em auto; /* Center table and add space around it */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow around the table for depth */
+}
+
+/* Styling for table headers */
+.styled-table th {
+  background-color: #f4f4f4; /* Light grey background for headers */
+  color: #333; /* Dark grey text color for contrast */
+  padding: 10px 15px; /* Padding for aesthetic spacing */
+  border-bottom: 2px solid #ccc; /* Bottom border for headers */
+  text-align: left; /* Align text to the left */
+}
+
+/* Styling for table cells */
+.style-table td {
+  padding: 8px 15px; /* Padding inside cells */
+  border-bottom: 1px solid #eee; /* Light grey bottom border for each cell */
+  text-align: left; /* Align text to the left */
+}
+
+/* Hover effect for rows */
+.style-table tr:hover {
+  background-color: #eef; /* Very light blue background on hover */
+}
+
+/* Column hover effect using CSS nth-child selector */
+.style-table td:hover,
+.style-table th:hover {
+  background-color: #ddf; /* Slightly darker blue for hovered cell */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate interactivity */
+}
