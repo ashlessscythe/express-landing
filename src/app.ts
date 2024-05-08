@@ -1,29 +1,38 @@
 import express, { Express, Request, Response } from "express";
-import path from "path"; // Use ES6 import for path module
-import dotenv from "dotenv"; // Import dotenv as an ES6 module
-import bodyParser from "body-parser"; // Import body-parser as an ES6 module
-
-dotenv.config(); // Load environment variables
+import path from "path";
+import bodyParser from "body-parser";
 
 const app: Express = express();
-const port: number = parseInt(process.env.PORT || "3000", 10); // Ensure PORT is a number
+const PORT: number = 3000;
 
+// Set up view engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../templates"));
+app.set("views", path.join(__dirname, "../views"));
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, "../templates")));
-app.use(bodyParser.urlencoded({ extended: true })); // use body-parser to parse form data
+// Middleware to serve static files and parse request bodies
+app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.urlencoded({ extended: true }));
 
+// Routes
 app.get("/", (req: Request, res: Response) => {
   res.render("welcome");
 });
 
 app.post("/submit", (req: Request, res: Response) => {
   const { eventName, hostName } = req.body;
+  res.redirect(
+    `/index?eventName=${encodeURIComponent(
+      eventName
+    )}&hostName=${encodeURIComponent(hostName)}`
+  );
+});
+
+app.get("/index", (req: Request, res: Response) => {
+  const eventName = req.query.eventName ? req.query.eventName.toString() : "";
+  const hostName = req.query.hostName ? req.query.hostName.toString() : "";
   res.render("index", { eventName, hostName });
 });
 
-app.listen(port, () => {
-  console.log(`App is listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`App is listening on port ${PORT}`);
 });

@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Check-In</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script type="module" src="/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
   </head>
   <body>
@@ -13,7 +14,7 @@
       <!-- Button to open modal -->
       <button id="open-modal" class="button">Check-in</button>
       <!-- button navigate to welcome -->
-      <button id="home" class="button">Back to Welcome</button>
+      <button id="home" name="btn-home" class="button">Back to Welcome</button>
       <div id="checked-in" style="text-align: center; margin-top: 3em">
         <h1>Checked-in Users</h1>
         <table
@@ -36,7 +37,9 @@
           </tbody>
         </table>
         <!-- button navigate to welcome -->
-        <button id="open-welcome" class="button">Back to Welcome</button>
+        <button id="home" name="btn-home" class="button">
+          Back to Welcome
+        </button>
       </div>
     </div>
 
@@ -78,61 +81,3 @@
     <!--end modal -->
   </body>
 </html>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var modal = document.getElementById("modal");
-    var btn = document.getElementById("open-modal");
-    var span = document.getElementById("close-modal");
-    var home = document.getElementById("home");
-
-    // Initialize signature pad
-    var signaturePad = new SignaturePad(
-      document.getElementById("signature-pad"),
-      {
-        backgroundColor: "rgba(255, 255, 255, 0)",
-        penColor: "rgb(0, 0, 0)",
-      }
-    );
-
-    home.onclick = () => {
-      window.location.href = "/";
-    };
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function () {
-      modal.style.display = "block";
-    };
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-      modal.style.display = "none";
-    };
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    };
-
-    document
-      .getElementById("clear-signature")
-      .addEventListener("click", function () {
-        signaturePad.clear();
-      });
-
-    document
-      .getElementById("save-signature")
-      .addEventListener("click", function () {
-        if (signaturePad.isEmpty()) {
-          alert("Please provide a signature first.");
-        } else {
-          var dataURL = signaturePad.toDataURL();
-          console.log("Signature saved:", dataURL);
-          signaturePad.clear();
-          document.getElementById("name").value = "";
-        }
-      });
-  });
-</script>
