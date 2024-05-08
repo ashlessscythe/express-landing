@@ -1,8 +1,11 @@
 # Use an official Node runtime as a parent image
-FROM node:14-alpine
+FROM node:16-alpine
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
+
+# install openssl
+RUN apk --no-cache add openssl
 
 # Copy package.json and package-lock.json (or npm-shrinkwrap.json)
 COPY package*.json ./
@@ -12,6 +15,12 @@ RUN npm install
 
 # Copy the rest of the application code
 COPY . .
+
+# webpack
+RUN npx webpack
+
+# generate prisma client
+RUN npx prisma generate
 
 # Build the application
 RUN npm run build

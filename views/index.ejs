@@ -6,7 +6,6 @@
     <title>Event Check-In</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <script type="module" src="/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
   </head>
   <body>
     <div id="welcome" style="text-align: center; margin-top: 3em">
@@ -28,11 +27,7 @@
               <th>Checked-in At</th>
             </tr>
           </thead>
-          <tbody
-            id="checked-in-table"
-            class="styled-table"
-            id="checked-in-users"
-          >
+          <tbody class="styled-table" id="checked-in-users">
             <!-- Checked-in users will be dynamically added here -->
           </tbody>
         </table>
@@ -62,7 +57,7 @@
                 <input
                   id="name"
                   type="text"
-                  name="name"
+                  autocomplete="off"
                   placeholder="Enter name here"
                 />
               </td>

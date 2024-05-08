@@ -1,3 +1,6 @@
+import { isConstructorDeclaration } from "typescript";
+import { signaturePad } from "signature_pad";
+
 export function initializeModalControls() {
   const modal = document.getElementById("modal");
   const btn = document.getElementById("open-modal");
@@ -18,8 +21,44 @@ export function initializeModalControls() {
   };
 }
 
+// Sample function to add a new checked-in user to the table
+export function addCheckedInUser(userData) {
+  // Find the table body where users will be added
+  const tableBody = document.getElementById("checked-in-users");
+
+  // Create a new row and cells for the user's name and check-in time
+  userData.forEach((user) => {
+    const row = tableBody.insertRow(); // Inserts a new row in the table body
+    const nameCell = row.insertCell(0); // Inserts a cell for the name
+    const timeCell = row.insertCell(1); // Inserts a cell for the checked-in time
+
+    // Fill the cells with data
+    nameCell.textContent = user.name;
+    timeCell.textContent = user.checkedInAt;
+  });
+}
+
+// Example usage:
+// This could be triggered after fetching data or handling form submission
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("/signatures")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((users) => {
+      addCheckedInUser(users);
+    })
+    .catch((error) => {
+      console.error("Error fetching user signatures:", error);
+      alert("Failed to load user signatures.");
+    });
+});
+
 export function setupSignaturePad() {
-  const signaturePad = new SignaturePad(
+  const signaturePad = new signaturePad(
     document.getElementById("signature-pad"),
     {
       backgroundColor: "rgba(255, 255, 255, 0)", // transparent background
@@ -37,7 +76,30 @@ export function setupSignaturePad() {
     if (signaturePad.isEmpty()) {
       alert("Please provide a signature first.");
     } else {
-      const dataURL = signaturePad.toDataURL();
+      // process sig
+      const dataURL = signaturePad.toDataURL("image/png");
+      const name = document.getElementById("name").value;
+      const data = {
+        name: name,
+        signature: dataURL,
+      };
+
+      // Send the data to the server
+      fetch("/save-signature", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
       console.log("Signature saved:", dataURL);
       // Clear the signature pad
       signaturePad.clear();
