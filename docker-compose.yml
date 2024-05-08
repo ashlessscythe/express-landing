@@ -1,0 +1,9 @@
+version: "3.2"
+
+services:
+  app:
+    build: .
+    env_file: .env
+    container_name: app
+    ports:
+      - "${PORT}:${PORT}"

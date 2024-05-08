@@ -1,9 +1,10 @@
 import express, { Express, Request, Response } from "express";
 import path from "path";
+import "dotenv/config";
 import bodyParser from "body-parser";
+const PORT = parseInt(process.env.PORT as string, 10) || 3000;
 
 const app: Express = express();
-const PORT: number = 3000;
 
 // Set up view engine
 app.set("view engine", "ejs");
